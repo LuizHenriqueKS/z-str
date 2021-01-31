@@ -17,11 +17,11 @@ A lib to easily manipulate strings
   const myString = 'aBcdefg dgf dxf';
   const str = new ZStr(myString, {caseSensitive: false});
 
-  console.log('Bcd', str.from('a').till('e').toString());
-  console.log('x', str.fromLast('d').tillLast('f').toString());
-  console.log(true, str.startsWith('abc'));
+  console.log(str.from('a').till('e').toString()); //Bcd
+  console.log(str.fromLast('d').tillLast('f').toString()); //x
+  console.log(str.startsWith('abc')); //true
   console.log(str.search('b').next());
-  console.log(['e', 'g','x'], str.batch().from('d').till('f').split().asArray());
+  console.log(str.batch().from('d').till('f').split().asArray()); //['e', 'g','x']
 ```
 
 ## Typescript
@@ -31,11 +31,11 @@ A lib to easily manipulate strings
 
   const str = new ZStr('aBcdefg', {caseSensitive: false});
 
-  console.log('Bcd', str.from('a').till('e').toString());
-  console.log('x', str.fromLast('d').tillLast('f').toString());
-  console.log(true, str.startsWith('abc'));
+  console.log(str.from('a').till('e').toString()); //Bcd
+  console.log(str.fromLast('d').tillLast('f').toString()); //x
+  console.log(str.startsWith('abc')); //true
   console.log(str.search('b').next());
-  console.log(['e', 'g','x'], str.batch().from('d').till('f').split().asArray());
+  console.log(str.batch().from('d').till('f').split().asArray()); //['e', 'g','x']
 ```
 
 # Summary 
@@ -418,7 +418,7 @@ tr.startsWith(patterns: string|string[], patternsToIgnore: string[])
 # Ends with
 
 ```typescript
-tr.endsWith(patterns: string|string[], patternsToIgnore: string[])
+str.endsWith(patterns: string|string[], patternsToIgnore: string[])
 ```
 
 ```typescript
