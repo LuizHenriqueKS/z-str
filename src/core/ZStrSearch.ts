@@ -190,14 +190,15 @@ class ZStrSearch {
   }
 
   private findPattern(pattern: string): ZStrSearchResult {
+    const localPattern = this.treatString(pattern);
     let index;
     switch (this.direction) {
       case ZStrDirection.START:
-        index = this.source().indexOf(pattern, this.offset);
-        return this.createResult(pattern, index);
+        index = this.source().indexOf(localPattern, this.offset);
+        return this.createResult(localPattern, index);
       case ZStrDirection.END:
-        index = this.source().lastIndexOf(pattern, this.offset);
-        return this.createResult(pattern, index);
+        index = this.source().lastIndexOf(localPattern, this.offset);
+        return this.createResult(localPattern, index);
       default:
         throw new UnsupportedOperationException();
     }

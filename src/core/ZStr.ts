@@ -113,6 +113,16 @@ class ZStr {
     return operator.apply(this);
   }
 
+  startsWith(patterns: string[] | string, patternsToIgnore?: string[]): boolean {
+    const result = this.findFirst(patterns, patternsToIgnore);
+    return result.valid && result.start === 0;
+  }
+
+  endsWith(patterns: string[] | string, patternsToIgnore?: string[]): boolean {
+    const result = this.findLast(patterns, patternsToIgnore);
+    return result.valid && result.end === this.#string.length;
+  }
+
   isEmpty() {
     return this.#string === '';
   }

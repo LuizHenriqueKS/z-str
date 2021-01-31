@@ -92,3 +92,23 @@ it('should crop a string by end', () => {
   const str = new ZStr('abc->def<-<-ghi', { inclusive: true });
   expect(str.tillLast('<-').toString()).toBe('abc->def<-<-');
 });
+
+it('should test if a string startsWith', () => {
+  const str = new ZStr('aBcdEf');
+  expect(str.startsWith('aB')).toBeTruthy();
+  expect(str.startsWith('ab')).toBeFalsy();
+
+  const sub = str.sub({ caseSensitive: false });
+  expect(sub.startsWith('aB')).toBeTruthy();
+  expect(sub.startsWith('ab')).toBeTruthy();
+});
+
+it('should test if a string endsWith', () => {
+  const str = new ZStr('aBcdEf');
+  expect(str.endsWith('Ef')).toBeTruthy();
+  expect(str.endsWith('ef')).toBeFalsy();
+
+  const sub = str.sub({ caseSensitive: false });
+  expect(sub.endsWith('Ef')).toBeTruthy();
+  expect(sub.endsWith('ef')).toBeTruthy();
+});

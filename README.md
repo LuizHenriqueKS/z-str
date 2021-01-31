@@ -20,7 +20,7 @@ A lib to easily manipulate strings
   console.log('Bcd', str.from('a').till('e').toString());
   console.log('x', str.fromLast('d').tillLast('f').toString());
   console.log(true, str.startsWith('abc'));
-  console.log(str.search('b'));
+  console.log(str.search('b').next());
   console.log(['e', 'g','x'], str.batch().from('d').till('f').split().asArray());
 ```
 
@@ -34,7 +34,7 @@ A lib to easily manipulate strings
   console.log('Bcd', str.from('a').till('e').toString());
   console.log('x', str.fromLast('d').tillLast('f').toString());
   console.log(true, str.startsWith('abc'));
-  console.log(str.search('b'));
+  console.log(str.search('b').next());
   console.log(['e', 'g','x'], str.batch().from('d').till('f').split().asArray());
 ```
 
@@ -54,6 +54,8 @@ A lib to easily manipulate strings
 [fromLast](#from-last)
 [till](#till)
 [tillLast](#till-last)
+[startsWith](#starts-with)
+[endsWith](#ends-with)
 
 # Constructor
 
@@ -62,7 +64,7 @@ A lib to easily manipulate strings
 ```
 
 Default values of `options`:
-```json
+```javascript
   {
     caseSensitive: true,
     inclusive: false,
@@ -81,7 +83,9 @@ Default values of `options`:
 
 Create a new ZStr with other options:
 
-`str.sub(options)`
+```typescript
+str.sub(options)
+```
 
 ```typescript
   const str = new ZStr('Abc');
@@ -95,7 +99,10 @@ Create a new ZStr with other options:
 
 Compare two strings
 
-`str.equals(otherString: string | ZStr)`
+
+```typescript
+str.equals(otherString: string | ZStr)
+```
 
 ```typescript
   const a = new ZStr('a');
@@ -113,7 +120,10 @@ Compare two strings
 
 # Search
 
-`str.search(patterns: string|string[], patternsToIgnore?: string[])` 
+
+```typescript
+str.search(patterns: string|string[], patternsToIgnore?: string[])
+```
 
 ## Example 1
 ```typescript
@@ -126,7 +136,7 @@ Compare two strings
 ```
 
 ### Output
-```json
+```javascript
   [
     {
       start: 4,
@@ -163,7 +173,7 @@ Compare two strings
 ```
 
 ### Output
-```json
+```javascript
   [
     {
       start: 4,
@@ -177,7 +187,6 @@ Compare two strings
 
 ## Example 3
 ```typescript
-
   const source = 'Name: Edward; Age:: 15';
   const search = new ZStr(source).search([':'], ['::']);
   while (search.hasNext()){
@@ -195,7 +204,6 @@ Compare two strings
 
 ## Example 4 - com reverseDirection()
 ```typescript
-
   const source = 'Name: Edward; Age:: 15';
   const search = new ZStr(source).search([':'], ['::']);
   search.reverseDirection();
@@ -214,7 +222,10 @@ Compare two strings
 
 # Substr
 
-`str.substr(start: number, length?: number)`
+
+```typescript
+str.substr(start: number, length?: number)
+```
 
 ```typescript
   const str = new ZStr('abcdef');
@@ -223,7 +234,9 @@ Compare two strings
 
 # Substring
 
-`str.substring(start: number, end?: number)`
+```typescript
+str.substring(start: number, end?: number)
+```
 
 ```typescript
   const str = new ZStr('abcdef');
@@ -232,7 +245,9 @@ Compare two strings
 
 # Contains any
 
-`str.containsAny(patterns: string|string[], patternsToIgnore: string[])`
+```
+str.containsAny(patterns: string | string[], patternsToIgnore: string[])
+```
 
 ```typescript
   const str = new ZStr('abc');
@@ -243,7 +258,10 @@ Compare two strings
 
 # Contains all
 
-`str.containsAll(patterns: string|string[], patternsToIgnore: string[])`
+
+```typescript
+str.containsAll(patterns: string | string[], patternsToIgnore: string[])
+```
 
 ```typescript
   const str = new ZStr('abc');
@@ -254,7 +272,9 @@ Compare two strings
 
 # Find first
 
-`str.findFirst(patterns: string|string[], patternsToIgnore: string[])`
+```typescript
+str.findFirst(patterns: string|string[], patternsToIgnore: string[])
+```
 
 ```typescript
   const str = new ZStr('abc:def:ghi');
@@ -263,7 +283,7 @@ Compare two strings
 ```
 
 Output:
-```json
+```javascript
   {
     start: 3,
     end: 4,
@@ -283,7 +303,7 @@ Example:
 ```
 
 Output:
-```json
+```javascript
   {
     start: 0,
     end: 0,
@@ -295,7 +315,9 @@ Output:
 
 # Find last
 
-`str.findLast(patterns: string|string[], patternsToIgnore: string[])`
+```typescript
+str.findLast(patterns: string|string[], patternsToIgnore: string[])
+```
 
 ```typescript
   const str = new ZStr('abc:def:ghi');
@@ -304,7 +326,7 @@ Output:
 ```
 
 Output:
-```json
+```javascript
   {
     start: 7,
     end: 8,
@@ -316,7 +338,9 @@ Output:
 
 # From
 
-`str.from(patterns: string|string[], patternsToIgnore: string[])`
+```typescript
+str.from(patterns: string|string[], patternsToIgnore: string[])
+```
 
 Example 1
 ```typescript
@@ -334,7 +358,9 @@ Example 2
 
 # From last
 
-`str.fromLast(patterns: string|string[], patternsToIgnore: string[])`
+```typescript
+str.fromLast(patterns: string|string[], patternsToIgnore: string[])
+```
 
 ```typescript
   const str = new ZStr('abc->->def<-ghi');
@@ -344,7 +370,9 @@ Example 2
 
 # Till
 
-`str.till(patterns: string|string[], patternsToIgnore: string[])`
+```typescript
+str.till(patterns: string|string[], patternsToIgnore: string[])
+```
 
 Example 1
 ```typescript
@@ -362,10 +390,42 @@ Example 2
 
 # Till last
 
-`str.tillLast(patterns: string|string[], patternsToIgnore: string[])`
+```typescript
+tr.tillLast(patterns: string|string[], patternsToIgnore: string[])
+```
 
 ```typescript
   const str = new ZStr('abc->def<-<-ghi', {inclusive: true});
 
   coonsole.log(str.tillLast('<-').toString())); //abc->def<-<-
+```
+
+# Starts with
+
+```typescript
+tr.startsWith(patterns: string|string[], patternsToIgnore: string[])
+```
+
+```typescript
+  const str = new ZStr('aBcdEf');
+
+  coonsole.log(str.startsWith('aBc')); //true
+  coonsole.log(str.startsWith(['eFg','aBc'])); //true
+  coonsole.log(str.startsWith('abc')); //false
+  coonsole.log(str.sub({caseSensitive: false}).startsWith('abc')); //true
+```
+
+# Ends with
+
+```typescript
+tr.endsWith(patterns: string|string[], patternsToIgnore: string[])
+```
+
+```typescript
+  const str = new ZStr('aBcdEf');
+
+  coonsole.log(str.endsWith('Ef')); //true
+  coonsole.log(str.endsWith(['zzz','dEf'])); //true
+  coonsole.log(str.endsWith('def')); //false
+  coonsole.log(str.sub({caseSensitive: false}).endsWith('def')); //true
 ```
