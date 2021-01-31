@@ -1,6 +1,6 @@
 interface ZStrOptions {
   caseSensitive?: boolean;
-  ignoreNotFoundPatterns?: boolean;
+  ignoreErrors?: boolean;
   inclusive?: boolean;
 }
 

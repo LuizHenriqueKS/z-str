@@ -1,3 +1,4 @@
+import ZStrTillOperator from '../operator/ZStrTillOperator';
 import ZStr from './ZStr';
 
 interface ZStrOperator {

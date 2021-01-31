@@ -2,7 +2,7 @@ import ZStrOptions from './ZStrOptions';
 
 class ZStrValidOptions implements ZStrOptions {
   caseSensitive: boolean = true;
-  ignoreNotFoundPatterns: boolean = false;
+  ignoreErrors: boolean = false;
   inclusive: boolean = false;
 }
 

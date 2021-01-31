@@ -1,9 +1,10 @@
 import ZStr from '../core/ZStr';
 import ZStrDirection from '../core/ZStrDirection';
-import ZStrPatternsOperator from '../core/ZStrPatternsOperator';
+import ZStrCropOperator from '../core/ZStrCropOperator';
 import PatternsNotFoundException from '../exception/PatternsNotFoundException';
+import applyCrop from '../util/applyCrop';
 
-class ZStrFromOperator implements ZStrPatternsOperator {
+class ZStrFromOperator implements ZStrCropOperator {
   patterns: string | string[];
   patternsToIgnore?: string[];
   direction: ZStrDirection;
@@ -12,6 +13,10 @@ class ZStrFromOperator implements ZStrPatternsOperator {
     this.patterns = patterns;
     this.patternsToIgnore = patternsToIgnore;
     this.direction = ZStrDirection.START;
+  }
+
+  crop(str: ZStr, direction: ZStrDirection): ZStr {
+    return applyCrop(this, str, direction);
   }
 
   canApply(str: ZStr): boolean {
@@ -25,11 +30,19 @@ class ZStrFromOperator implements ZStrPatternsOperator {
     if (foundPattern.valid) {
       const index = str.inclusive ? foundPattern.start : foundPattern.end;
       return str.substring(index);
-    } else if (!str.ignoreNotFoundPatterns) {
+    } else if (!str.ignoreErrors) {
       throw new PatternsNotFoundException(this);
     } else {
       return str;
     }
+  }
+
+  isFrom(): boolean {
+    return true;
+  }
+
+  isTill(): boolean {
+    return false;
   }
 }
 

@@ -1,12 +1,14 @@
 import ZStr from './ZStr';
 import IZStrSearch from './IZStrSearch';
+import ZStrIterator from './ZStrIterator';
 import ZStrDirection from './ZStrDirection';
 import ZStrSearchResult from './ZStrSearchResult';
 import ZStrSearchBuilder from './ZStrSearchBuilder';
+import ZStrIteratorResult from './ZStrIteratorResult';
 import UnsupportedOperationException from '../exception/UnsupportedOperationException';
 import firstNotNull from '../util/firstNotNull';
 
-class ZStrSearch {
+class ZStrSearch extends ZStrIterator<ZStrSearchResult> {
   #string: string;
   #source?: string;
   #caseSensitive: boolean;
@@ -15,21 +17,15 @@ class ZStrSearch {
   #patternsToIgnore: string[];
   #direction: ZStrDirection;
 
-  #next: ZStrSearchResult;
-  #hasNextLoad: boolean;
-
   #offset?: number;
-  #finished: boolean;
 
   constructor() {
+    super();
     this.#string = '';
     this.#caseSensitive = true;
     this.#patterns = [];
     this.#patternsToIgnore = [];
     this.#direction = ZStrDirection.START;
-    this.#next = this.emptyResult();
-    this.#hasNextLoad = false;
-    this.#finished = false;
   }
 
   sub(options: IZStrSearch): ZStrSearch {
@@ -41,43 +37,14 @@ class ZStrSearch {
     return builder.build();
   }
 
-  hasNext(): boolean {
-    if (this.#hasNextLoad) {
-      return this.#next.valid;
-    } else if (this.#finished) {
-      return false;
-    } else {
-      this.#next = this.next();
-      this.#hasNextLoad = true;
-      return this.#next.valid;
-    }
-  }
-
-  next(): ZStrSearchResult {
-    if (this.#hasNextLoad) {
-      this.#hasNextLoad = false;
-      return this.#next;
-    } else if (this.#finished) {
-      this.#hasNextLoad = false;
-      return this.emptyResult();
-    } else {
-      return this.findNext();
-    }
-  }
-
-  list(): ZStrSearchResult[] {
-    const result = [];
-    while (this.hasNext()) {
-      result.push(this.next());
-    }
-    return result;
+  tryGetNext(): ZStrIteratorResult<ZStrSearchResult> {
+    const value = this.findNext();
+    return { value, valid: value.valid };
   }
 
   reset() {
-    this.#hasNextLoad = false;
-    this.#finished = false;
+    super.reset();
     this.#offset = undefined;
-    this.#next = this.emptyResult();
   }
 
   reverseDirection(): ZStrSearch {
@@ -106,7 +73,7 @@ class ZStrSearch {
         this.#offset = this.nextOffset(bestResult);
         this.refreshFinished();
       } else {
-        this.#finished = true;
+        this._finished = true;
       }
       return bestResult;
     }
@@ -115,10 +82,10 @@ class ZStrSearch {
   private refreshFinished() {
     switch (this.direction) {
       case ZStrDirection.START:
-        this.#finished = this.#offset === this.string.length;
+        this._finished = this.#offset === this.string.length;
         break;
       case ZStrDirection.END:
-        this.#finished = this.#offset === -1;
+        this._finished = this.#offset === -1;
         break;
       default:
         throw new UnsupportedOperationException();
@@ -204,7 +171,7 @@ class ZStrSearch {
     }
   }
 
-  private emptyResult(): ZStrSearchResult {
+  emptyResult(): ZStrSearchResult {
     return {
       start: 0,
       end: 0,

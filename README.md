@@ -21,7 +21,7 @@ A lib to easily manipulate strings
   console.log(str.fromLast('d').tillLast('f').toString()); //x
   console.log(str.startsWith('abc')); //true
   console.log(str.search('b').next());
-  console.log(str.batch().from('d').till('f').split().asArray()); //['e', 'g','x']
+  console.log(str.batch().from('d').till('f').split().list().asStringArray()); //['e', 'g', 'x']
 ```
 
 ## Typescript
@@ -35,7 +35,7 @@ A lib to easily manipulate strings
   console.log(str.fromLast('d').tillLast('f').toString()); //x
   console.log(str.startsWith('abc')); //true
   console.log(str.search('b').next());
-  console.log(str.batch().from('d').till('f').split().asArray()); //['e', 'g','x']
+  console.log(str.batch().from('d').till('f').split().list().asStringArray()); //['e', 'g', 'x']
 ```
 
 # Summary 
@@ -56,6 +56,13 @@ A lib to easily manipulate strings
 [tillLast](#till-last)
 [startsWith](#starts-with)
 [endsWith](#ends-with)
+[batch](#batch)
+[fromIndex](#from-index)
+[tillIndex](#till-index)
+[split](#split)
+[trim](#trim)
+[trimStart](#trim-start)
+[trimEnd](#trim-end)
 
 # Constructor
 
@@ -68,11 +75,15 @@ Default values of `options`:
   {
     caseSensitive: true,
     inclusive: false,
-    ignoreNotFoundPatterns: false
+    ignoreErrors: false
   }
 ```
 
 # Is empty
+
+```typescript
+  str.isEmpty(): boolean;
+```
 
 ```typescript
   console.log(new ZStr('').isEmpty()); //true
@@ -84,7 +95,7 @@ Default values of `options`:
 Create a new ZStr with other options:
 
 ```typescript
-str.sub(options)
+  str.sub(options): ZStr;
 ```
 
 ```typescript
@@ -101,7 +112,7 @@ Compare two strings
 
 
 ```typescript
-str.equals(otherString: string | ZStr)
+  str.equals(otherString: string | ZStr): boolean;
 ```
 
 ```typescript
@@ -122,7 +133,7 @@ str.equals(otherString: string | ZStr)
 
 
 ```typescript
-str.search(patterns: string|string[], patternsToIgnore?: string[])
+  str.search(patterns: string|string[], patternsToIgnore?: string[]): ZStrSearch;
 ```
 
 ## Example 1
@@ -224,7 +235,7 @@ str.search(patterns: string|string[], patternsToIgnore?: string[])
 
 
 ```typescript
-str.substr(start: number, length?: number)
+str.substr(start: number, length?: number): ZStr;
 ```
 
 ```typescript
@@ -235,7 +246,7 @@ str.substr(start: number, length?: number)
 # Substring
 
 ```typescript
-str.substring(start: number, end?: number)
+str.substring(start: number, end?: number): ZStr;
 ```
 
 ```typescript
@@ -245,41 +256,41 @@ str.substring(start: number, end?: number)
 
 # Contains any
 
-```
-str.containsAny(patterns: string | string[], patternsToIgnore: string[])
+```typescript
+str.containsAny(patterns: string | string[], patternsToIgnore: string[]): boolean;
 ```
 
 ```typescript
   const str = new ZStr('abc');
 
-  coonsole.log(str.containsAny(['e','a'])); //true
-  coonsole.log(str.containsAny(['e','f'])); //false
+  console.log(str.containsAny(['e','a'])); //true
+  console.log(str.containsAny(['e','f'])); //false
 ```
 
 # Contains all
 
 
 ```typescript
-str.containsAll(patterns: string | string[], patternsToIgnore: string[])
+str.containsAll(patterns: string | string[], patternsToIgnore: string[]): boolean;
 ```
 
 ```typescript
   const str = new ZStr('abc');
 
-  coonsole.log(str.containsAll(['b','a'])); //true
-  coonsole.log(str.containsAll(['a','e'])); //false
+  console.log(str.containsAll(['b','a'])); //true
+  console.log(str.containsAll(['a','e'])); //false
 ```
 
 # Find first
 
 ```typescript
-str.findFirst(patterns: string|string[], patternsToIgnore: string[])
+str.findFirst(patterns: string|string[], patternsToIgnore: string[]): ZStrSearchResult;
 ```
 
 ```typescript
   const str = new ZStr('abc:def:ghi');
 
-  coonsole.log(str.findFirst([':'])); 
+  console.log(str.findFirst([':'])); 
 ```
 
 Output:
@@ -299,7 +310,7 @@ Example:
 ```typescript
   const str = new ZStr('abc:def:ghi');
 
-  coonsole.log(str.findFirst(['::'])); 
+  console.log(str.findFirst(['::'])); 
 ```
 
 Output:
@@ -316,13 +327,13 @@ Output:
 # Find last
 
 ```typescript
-str.findLast(patterns: string|string[], patternsToIgnore: string[])
+str.findLast(patterns: string|string[], patternsToIgnore: string[]): ZStrSearchResult;
 ```
 
 ```typescript
   const str = new ZStr('abc:def:ghi');
 
-  coonsole.log(str.findLast([':'])); 
+  console.log(str.findLast([':'])); 
 ```
 
 Output:
@@ -339,93 +350,175 @@ Output:
 # From
 
 ```typescript
-str.from(patterns: string|string[], patternsToIgnore: string[])
+str.from(patterns: string|string[], patternsToIgnore: string[]): ZStr;
 ```
 
 Example 1
 ```typescript
   const str = new ZStr('abc->def<-ghi');
 
-  coonsole.log(str.from('->').toString())); //def<-ghi
+  console.log(str.from('->').toString())); //def<-ghi
 ```
 
 Example 2
 ```typescript
   const str = new ZStr('abc->def<-ghi', {inclusive: true});
 
-  coonsole.log(str.from('->').toString())); //->def<-ghi
+  console.log(str.from('->').toString())); //->def<-ghi
 ```
 
 # From last
 
 ```typescript
-str.fromLast(patterns: string|string[], patternsToIgnore: string[])
+str.fromLast(patterns: string|string[], patternsToIgnore: string[]): ZStr;
 ```
 
 ```typescript
   const str = new ZStr('abc->->def<-ghi');
 
-  coonsole.log(str.fromLast('->').toString())); //def<-ghi
+  console.log(str.fromLast('->').toString())); //def<-ghi
 ```
 
 # Till
 
 ```typescript
-str.till(patterns: string|string[], patternsToIgnore: string[])
+str.till(patterns: string|string[], patternsToIgnore: string[]): ZStr;
 ```
 
 Example 1
 ```typescript
   const str = new ZStr('abc->def<-<-ghi');
 
-  coonsole.log(str.till('<-').toString())); //abc->def
+  console.log(str.till('<-').toString())); //abc->def
 ```
 
 Example 2
 ```typescript
   const str = new ZStr('abc->def<-<-ghi', {inclusive: true});
 
-  coonsole.log(str.till('<-').toString())); //abc->def<-
+  console.log(str.till('<-').toString())); //abc->def<-
 ```
 
 # Till last
 
 ```typescript
-tr.tillLast(patterns: string|string[], patternsToIgnore: string[])
+tr.tillLast(patterns: string|string[], patternsToIgnore: string[]): ZStr;
 ```
 
 ```typescript
   const str = new ZStr('abc->def<-<-ghi', {inclusive: true});
 
-  coonsole.log(str.tillLast('<-').toString())); //abc->def<-<-
+  console.log(str.tillLast('<-').toString())); //abc->def<-<-
 ```
 
 # Starts with
 
 ```typescript
-tr.startsWith(patterns: string|string[], patternsToIgnore: string[])
+tr.startsWith(patterns: string|string[], patternsToIgnore: string[]): ZStr;
 ```
 
 ```typescript
   const str = new ZStr('aBcdEf');
 
-  coonsole.log(str.startsWith('aBc')); //true
-  coonsole.log(str.startsWith(['eFg','aBc'])); //true
-  coonsole.log(str.startsWith('abc')); //false
-  coonsole.log(str.sub({caseSensitive: false}).startsWith('abc')); //true
+  console.log(str.startsWith('aBc')); //true
+  console.log(str.startsWith(['eFg','aBc'])); //true
+  console.log(str.startsWith('abc')); //false
+  console.log(str.sub({caseSensitive: false}).startsWith('abc')); //true
 ```
 
 # Ends with
 
 ```typescript
-str.endsWith(patterns: string|string[], patternsToIgnore: string[])
+str.endsWith(patterns: string|string[], patternsToIgnore: string[]): ZStr;
 ```
 
 ```typescript
   const str = new ZStr('aBcdEf');
 
-  coonsole.log(str.endsWith('Ef')); //true
-  coonsole.log(str.endsWith(['zzz','dEf'])); //true
-  coonsole.log(str.endsWith('def')); //false
-  coonsole.log(str.sub({caseSensitive: false}).endsWith('def')); //true
+  console.log(str.endsWith('Ef')); //true
+  console.log(str.endsWith(['zzz','dEf'])); //true
+  console.log(str.endsWith('def')); //false
+  console.log(str.sub({caseSensitive: false}).endsWith('def')); //true
+```
+
+# Batch
+
+```typescript
+  str.batch(): ZStrBatch;
+```
+
+```typescript
+  const str = new ZStr('Name: Edward; Age: 20; Name: Maria; Age: 25');
+
+  const names1 = str.batch().from("Name: ").till(";").split().asStringArray();
+
+  const names2 = str.batch().caseSensitive(false).from("name:").inclusive().till(";").split().list().trim().asStringArray();
+
+  console.log(names1); //['Edward', 'Maria']
+  console.log(names2); //['Edward;', 'Maria;']
+)
+```
+
+```typescript
+  const str = new ZStr('Name: Edward; Age: 20; Name: Maria; Age: 25');
+
+  const persons = str.batch().from('Name:').till(';').trim().name('name').from('Age:').till(';').trim().name('age').group().list();
+
+  console.log(persons); //[{name: 'Edward', age: '20'}, {name: 'Maria', age: '25'}]
+```
+
+# From index
+```typescript
+  str.fromIndex(index: number): ZStr;
+```
+
+```typescript
+  const str = new ZStr('123Abc');
+
+  console.log(str.fromIndex(3).toString()); //Abc
+  console.log(str.fromIndex(-2).toString()); //bc
+```
+
+# Till index
+
+```typescript
+  str.tillIndex(index: number): ZStr;
+```
+
+```typescript
+  const str = new ZStr('123Abc');
+
+  console.log(str.tillIndex(3).toString()); //123
+  console.log(str.tllIndex(-2).toString()); //123A
+```
+
+# Split
+
+```typescript
+  str.split(patterns: string | string[], pattersToIgnore?: string[]): ZStrSplitter;
+```
+
+```typescript
+  const str = new ZStr('Edward,Maria;Sarah');
+
+  console.log(str.split([',',';']).asStringArray())); //['Edward', 'Maria', 'Sarah']
+
+```
+
+# Trim
+
+```typescript
+  str.trim(): ZStr;
+```
+
+# Trim start
+
+```typescript
+  str.trimStart(): ZStr;
+```
+
+# Trim end
+
+```typescript
+  str.trimEnd(): ZStr;
 ```

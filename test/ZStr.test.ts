@@ -73,7 +73,7 @@ it('should substring a string by start', () => {
   const str = new ZStr('abc->def<-ghi');
   expect(str.from('->').toString()).toBe('def<-ghi');
   expect(str.sub({ inclusive: true }).from('->').toString()).toBe('->def<-ghi');
-  expect(str.sub({ ignoreNotFoundPatterns: true }).from('kkk').toString()).toBe(str.toString());
+  expect(str.sub({ ignoreErrors: true }).from('kkk').toString()).toBe(str.toString());
 });
 
 it('should substring a string by end', () => {
@@ -85,7 +85,7 @@ it('should crop a string by start', () => {
   const str = new ZStr('abc->def<-<-ghi');
   expect(str.till('<-').toString()).toBe('abc->def');
   expect(str.sub({ inclusive: true }).till('<-').toString()).toBe('abc->def<-');
-  expect(str.sub({ ignoreNotFoundPatterns: true }).till('kkk').toString()).toBe(str.toString());
+  expect(str.sub({ ignoreErrors: true }).till('kkk').toString()).toBe(str.toString());
 });
 
 it('should crop a string by end', () => {
@@ -111,4 +111,18 @@ it('should test if a string endsWith', () => {
   const sub = str.sub({ caseSensitive: false });
   expect(sub.endsWith('Ef')).toBeTruthy();
   expect(sub.endsWith('ef')).toBeTruthy();
+});
+
+it('should substr a string from', () => {
+  const str = new ZStr('123Abc');
+
+  expect(str.fromIndex(3).toString()).toBe('Abc');
+  expect(str.fromIndex(-2).toString()).toBe('bc');
+});
+
+it('should substr a string till', () => {
+  const str = new ZStr('123Abc');
+
+  expect(str.tillIndex(3).toString()).toBe('123');
+  expect(str.tillIndex(-2).toString()).toBe('123A');
 });

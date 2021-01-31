@@ -1,10 +1,10 @@
 import ZStr from './ZStr';
 
 interface ZStrSearchResult {
+  valid: boolean;
   pattern: string;
   start: number;
   end: number;
-  valid: boolean;
   getFoundPattern(string: string | ZStr): string;
 }
 
