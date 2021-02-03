@@ -99,3 +99,12 @@ it('should search a string', () => {
   const indices = results.map(r => r.start);
   expect(indices).toStrictEqual([4]);
 });
+
+it('should search a string by end', () => {
+  const source = 'Name: Edward; Age:: 15';
+  const search = new ZStr(source).search([':'], ['::']);
+  const results = search.list();
+
+  const indices = results.map(r => r.start);
+  expect(indices).toStrictEqual([4]);
+});

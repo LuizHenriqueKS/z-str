@@ -210,14 +210,12 @@ Compare two strings
 ### Output
 ```
   4
-  17
-  18
 ```
 
 ## Example 4 - com reverseDirection()
 ```typescript
   const source = 'Name: Edward; Age:: 15';
-  const search = new ZStr(source).search([':'], ['::']);
+  const search = new ZStr(source).search([':']);
   search.reverseDirection();
   while (search.hasNext()){
     console.log(search.next().start);
