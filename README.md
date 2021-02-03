@@ -12,7 +12,7 @@ A lib to easily manipulate strings
 ## Javascript
 
 ```javascript
-  const ZStr = require('z-str');
+  const { ZStr } = require('z-str');
 
   const myString = 'aBcdefg dgf dxf';
   const str = new ZStr(myString, {caseSensitive: false});
@@ -27,7 +27,7 @@ A lib to easily manipulate strings
 ## Typescript
 
 ```typescript
-  import ZStr from 'z-str';
+  import { ZStr } from 'z-str';
 
   const myString = 'aBcdefg dgf dxf';
   const str = new ZStr(myString, {caseSensitive: false});

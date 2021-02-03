@@ -16,7 +16,7 @@ import IndexOutOfBoundsException from './exception/IndexOutOfBoundsException';
 import ZStrOptions from './core/ZStrOptions';
 
 module.exports = {
-  default: ZStr,
+  ZStr,
   ZStrSearch,
   ZStrOptions,
   ZStrFromOperator,
@@ -34,7 +34,7 @@ module.exports = {
   IndexOutOfBoundsException
 };
 
-export default ZStr;
+export { default as ZStr } from './core/ZStr';
 export { default as ZStrSearch } from './core/ZStrSearch';
 export { default as ZStrOptions } from './core/ZStrOptions';
 export { default as ZStrSearchResult } from './core/ZStrSearchResult';
