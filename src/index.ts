@@ -12,8 +12,14 @@ import ZStrTrimEndOperator from './operator/ZStrTrimEndOperator';
 import ZStrDirection from './core/ZStrDirection';
 import ZStrBatch from './core/ZStrBatch';
 import ZStrSplitter from './core/ZStrSplitter';
-import IndexOutOfBoundsException from './exception/IndexOutOfBoundsException';
 import ZStrOptions from './core/ZStrOptions';
+import ZStrGrouper from './core/ZStrGrouper';
+import ZStrList from './core/ZStrList';
+import IndexOutOfBoundsException from './exception/IndexOutOfBoundsException';
+import EmptyPatternsException from './exception/EmptyPatternsException';
+import PatternsNotFoundException from './exception/PatternsNotFoundException';
+import RequiredPropertyException from './exception/RequiredPropertyException';
+import UnsupportedOperationException from './exception/UnsupportedOperationException';
 
 module.exports = {
   ZStr,
@@ -31,7 +37,13 @@ module.exports = {
   ZStrDirection,
   ZStrBatch,
   ZStrSplitter,
-  IndexOutOfBoundsException
+  IndexOutOfBoundsException,
+  ZStrList,
+  ZStrGrouper,
+  EmptyPatternsException,
+  PatternsNotFoundException,
+  RequiredPropertyException,
+  UnsupportedOperationException
 };
 
 export { default as ZStr } from './core/ZStr';
@@ -50,3 +62,10 @@ export { default as ZStrDirection } from './core/ZStrDirection';
 export { default as ZStrBatch } from './core/ZStrBatch';
 export { default as ZStrSplitter } from './core/ZStrSplitter';
 export { default as IndexOutOfBoundsException } from './exception/IndexOutOfBoundsException';
+export { default as ZStrGrouper } from './core/ZStrGrouper';
+export { default as ZStrList } from './core/ZStrList';
+
+export { default as EmptyPatternsException } from './exception/EmptyPatternsException';
+export { default as PatternsNotFoundException } from './exception/PatternsNotFoundException';
+export { default as RequiredPropertyException } from './exception/RequiredPropertyException';
+export { default as UnsupportedOperationException } from './exception/UnsupportedOperationException';
