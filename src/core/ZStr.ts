@@ -1,20 +1,23 @@
-import ZStrOptions from './ZStrOptions';
-import ZStrSearch from './ZStrSearch';
-import ZStrSearchBuilder from './ZStrSearchBuilder';
 import buildValidOptions from '../util/buildValidOptions';
-import ZStrSearchResult from './ZStrSearchResult';
-import ZStrFromOperator from '../operator/ZStrFromOperator';
-import ZStrTillOperator from '../operator/ZStrTillOperator';
-import ZStrSubOperator from '../operator/ZStrSubOperator';
-import ZStrFromIndexOperator from '../operator/ZStrFromIndexOperator';
-import ZStrTillIndexOperator from '../operator/ZStrTillIndexOperator';
-import ZStrTrimOperator from '../operator/ZStrTrimOperator';
-import ZStrTrimStartOperator from '../operator/ZStrTrimStartOperator';
-import ZStrTrimEndOperator from '../operator/ZStrTrimEndOperator';
-import ZStrDirection from './ZStrDirection';
-import ZStrBatch from './ZStrBatch';
-import ZStrSplitter from './ZStrSplitter';
-import IndexOutOfBoundsException from '../exception/IndexOutOfBoundsException';
+import ZStrSearchBuilder from '../core/ZStrSearchBuilder';
+
+import {
+  ZStrSearch,
+  ZStrFromOperator,
+  ZStrOptions,
+  ZStrSearchResult,
+  ZStrTillOperator,
+  ZStrSubOperator,
+  ZStrFromIndexOperator,
+  ZStrTillIndexOperator,
+  ZStrTrimOperator,
+  ZStrTrimStartOperator,
+  ZStrTrimEndOperator,
+  ZStrDirection,
+  ZStrBatch,
+  ZStrSplitter,
+  IndexOutOfBoundsException
+} from '../index';
 
 class ZStr {
   #string: string;

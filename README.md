@@ -29,7 +29,8 @@ A lib to easily manipulate strings
 ```typescript
   import ZStr from 'z-str';
 
-  const str = new ZStr('aBcdefg', {caseSensitive: false});
+  const myString = 'aBcdefg dgf dxf';
+  const str = new ZStr(myString, {caseSensitive: false});
 
   console.log(str.from('a').till('e').toString()); //Bcd
   console.log(str.fromLast('d').tillLast('f').toString()); //x
