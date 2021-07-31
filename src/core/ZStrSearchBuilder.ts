@@ -15,10 +15,10 @@ class ZStrSearchBuilder {
 
   constructor(string: string | ZStr, options: ZStrSearchOptions = {}) {
     if (string instanceof ZStr) {
-      this.#string = string.toString();
+      this.#string = string.toString() || '';
       this.#caseSensitive = options.caseSensitive || string.caseSensitive;
     } else {
-      this.#string = string;
+      this.#string = string || '';
       this.#caseSensitive = options.caseSensitive || true;
     }
   }
